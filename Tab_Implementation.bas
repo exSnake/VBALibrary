@@ -1,8 +1,8 @@
 Attribute VB_Name = "insertName"
 Option Explicit
 
-Private Const name As String = "tableName" //Insert the name of the table, (you choose it when you create the table if you click on the table property)
-Private Const col As Integer = 19
+Private Const name As String = "tableName" 'Insert the name of the table, (you choose it when you create the table if you click on the table property)
+Private Const col As Integer = 19 'insert number of columns in the table
 Private lobj As ListObject
 
 Public Sub DoubleClick(Target As Range, cancel As Boolean)
