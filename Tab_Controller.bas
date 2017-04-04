@@ -21,8 +21,43 @@ Public Function GetCellByRow(lobj As ListObject, riga As Long, col As String) As
 End Function
 
 'Prende in ingresso la tabella e il nome di intestazione di una colonna e ne ritorna il range dei dati
-Public Function GetColumnData(lobj As ListObject, colName As String)
-    Set GetColumnData = lobj.ListColumns(colName).DataBodyRange
+Public Function GetColumnData(lobj As ListObject, colName As String) as Range
+    If myTbl.ListRows.Count = 0 Then
+        Set GetColumnData = GetHeaderRange(myTbl).Find(col).offset(1)
+    Else
+        Set GetColumnData = myTbl.ListColumns(col).DataBodyRange
+    End If
+End Function
+                
+'Ritorna il numero della prima riga vuota della tabella, relativa alla tabella stessa
+Public Function GetFirstEmptyRow(myTbl As ListObject) As Long
+    
+    If myTbl.ListRows.Count = 0 Then
+        GetFirstEmptyRow = 1
+    Else
+        Dim Row As Integer
+        Dim i As Integer
+        Row = myTbl.ListRows.Count
+        For i = 1 To myTbl.ListColumns.Count
+            If LTrim(myTbl.DataBodyRange(Row, i)) <> vbNullString Then
+                GetFirstEmptyRow = Row + 1
+                Exit Function
+            End If
+        Next i
+        GetFirstEmptyRow = Row
+    End If
+    
+    
+End Function
+                
+                
+'Ritorna  il range della prima riga vuota della tabella
+Public Function GetFirstEmptyRowRange(myTbl As ListObject) As Range
+    If GetFirstEmptyRow(myTbl) > myTbl.ListRows.Count Then
+        Set GetFirstEmptyRowRange = myTbl.ListRows(myTbl.ListRows.Count).Range.offset(1)
+    Else
+        Set GetFirstEmptyRowRange = myTbl.ListRows(myTbl.ListRows.Count).Range
+    End If
 End Function
 
 'Cancella tutti i dati presenti all'interno della tabella e ne crea una riga vuota
