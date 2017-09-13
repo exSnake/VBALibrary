@@ -62,8 +62,16 @@ End Function
 
 'Cancella tutti i dati presenti all'interno della tabella e ne crea una riga vuota
 Public Sub Reset(lobj As ListObject)
-    lobj.DataBodyRange.Delete
-    lobj.ListRows.Add
+    RemoveFilter lobj
+    Range(lobj.ListRows(2).Range, lobj.ListRows(lobj.ListRows.Count).Range).Delete xlShiftUp
+    'lobj.ListRows.Add
+End Sub
+
+'Rimuove tutti i filtri da una tabella
+Public Sub RemoveFilter(lobj As ListObject)
+    On Error Resume Next
+    lobj.AutoFilter.ShowAllData
+    On Error GoTo 0
 End Sub
 
 'Accetta in ingresso la listobject, il numero di righe e il numero di colonne,
