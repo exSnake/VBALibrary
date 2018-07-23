@@ -16,7 +16,7 @@ Private Const PrivateSuffix$ = ""
 Private Const FirstLetterOfPrivateVarLowerCase = True
 
 
-Private Const NativeTypes$ = "Boolean,Byte,Double,Integer,Long,Single,String"
+Private Const NativeTypes$ = "Boolean,Byte,Double,Integer,Long,Single,String,Date"
 
 Sub VbaPropertyGenerator()
 
